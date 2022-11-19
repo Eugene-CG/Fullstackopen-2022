@@ -17,6 +17,9 @@ export default function App() {
   const handleBadClick = () => {
     changeFeedback({ ...feedback, bad: feedback.bad + 1 });
   };
+  const all = feedback.good + feedback.neutral + feedback.bad;
+  const average = (feedback.good - feedback.bad) / all;
+  const positive = feedback.good / all;
   return (
     <div>
       <h1>Give feedback</h1>
@@ -34,8 +37,12 @@ export default function App() {
       />
       <h2>statistics</h2>
       <p>Good: {feedback.good}</p>
-      <p>Good: {feedback.neutral}</p>
-      <p>Good: {feedback.bad}</p>
+      <p>neutral: {feedback.neutral}</p>
+      <p>bad: {feedback.bad}</p>
+
+      <p>all: {all}</p>
+      <p>average: {average}</p>
+      <p>positive: {positive}</p>
     </div>
   );
 }
