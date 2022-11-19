@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Button from "./Button";
+import Statistics from "./Statistics";
 
 export default function App() {
   const [feedback, changeFeedback] = useState({
@@ -36,13 +37,11 @@ export default function App() {
         text="Bad"
       />
       <h2>statistics</h2>
-      <p>Good: {feedback.good}</p>
-      <p>neutral: {feedback.neutral}</p>
-      <p>bad: {feedback.bad}</p>
-
-      <p>all: {all}</p>
-      <p>average: {average}</p>
-      <p>positive: {positive}</p>
+      <Statistics
+        all={all}
+        average={average}
+        positive={positive}
+      />
     </div>
   );
 }
