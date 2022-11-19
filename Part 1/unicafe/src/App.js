@@ -37,9 +37,26 @@ export default function App() {
         text="Bad"
       />
       <h2>statistics</h2>
-      <p>
+      {/* <p>
         Good: {feedback.good}, Neutral: {feedback.neutral}, Bad: {feedback.bad}
-      </p>
+      </p> */}
+      {/* Dont want to create another component for this for now:D */}
+      <table>
+        <tbody>
+          <tr>
+            <td>Good:</td>
+            <td>{feedback.good}</td>
+          </tr>
+          <tr>
+            <td>Neutral:</td>
+            <td>{feedback.neutral}</td>
+          </tr>
+          <tr>
+            <td>Bad:</td>
+            <td>{feedback.bad}</td>
+          </tr>
+        </tbody>
+      </table>
       <Statistics
         all={all}
         average={average}
