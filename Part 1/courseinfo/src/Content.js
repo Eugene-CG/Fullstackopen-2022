@@ -1,9 +1,9 @@
-const Content = () => {
-  return (
-    <div>
-      <Part />
-      <Part />
-      <Part />
-    </div>
-  );
-};
+// const Content = () => {
+//   return (
+//     <div>
+//       <Part />
+//       <Part />
+//       <Part />
+//     </div>
+//   );
+// };
