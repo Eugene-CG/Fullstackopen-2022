@@ -1,19 +1,52 @@
 const App = () => {
-  const course = "Half Stack application development";
-  // const part1 = "Fundamentals of React";
-  // const exercises1 = 10;
-  // const part2 = "Using props to pass data";
-  // const exercises2 = 7;
-  // const part3 = "State of a component";
-  // const exercises3 = 14;
+  const course = {
+    name: "Half Stack application development",
+    parts: [
+      {
+        name: "Fundamentals of React",
+        exercises: 10,
+      },
+      {
+        name: "Using props to pass data",
+        exercises: 7,
+      },
+      {
+        name: "State of a component",
+        exercises: 14,
+      },
+    ],
+  };
 
   return (
     <div>
-      <Header course={course} />
-      <Content />
-      <Total />
+      <Header course={course.name} />
+      <Content parts={course.parts} />
+      <Total parts={course.parts} />
     </div>
   );
 };
+// start:Tempotaty components, npm start not wotking without them btw =)
+const Header = () => {
+  return (
+    <>
+      <h1>Hello Header</h1>
+    </>
+  );
+};
+const Content = () => {
+  return (
+    <>
+      <h1>Hello Content</h1>
+    </>
+  );
+};
+const Total = () => {
+  return (
+    <>
+      <h1>Hello Total</h1>
+    </>
+  );
+};
+// end:Tempotaty components, npm start not wotking without them btw =)
 
 export default App;
