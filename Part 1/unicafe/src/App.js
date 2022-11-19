@@ -37,6 +37,9 @@ export default function App() {
         text="Bad"
       />
       <h2>statistics</h2>
+      <p>
+        Good: {feedback.good}, Neutral: {feedback.neutral}, Bad: {feedback.bad}
+      </p>
       <Statistics
         all={all}
         average={average}
