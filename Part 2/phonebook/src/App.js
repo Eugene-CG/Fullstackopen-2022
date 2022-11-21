@@ -5,9 +5,17 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const addNote = (e) => {
     e.preventDefault();
+    if (checkUnicName(persons, newName)) {
+      alert("Only Unic Names");
+      return;
+    }
+
     setPersons(persons.concat({ name: newName }));
     setNewName("");
     console.log(persons);
+  };
+  const checkUnicName = (arr, targetStr) => {
+    return arr.some(({ name }) => name === targetStr);
   };
   return (
     <div>
