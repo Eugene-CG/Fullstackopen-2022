@@ -10,7 +10,6 @@ export const Content = ({ parts }) => {
     />
   ));
   const total = parts.reduce((pV, cV) => pV + cV.exercises, 0);
-  console.log(total);
   return (
     <div>
       {content}
