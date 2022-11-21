@@ -5,7 +5,6 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const addNote = (e) => {
     e.preventDefault();
-    console.log("hi");
     setPersons(persons.concat({ name: newName }));
     setNewName("");
     console.log(persons);
