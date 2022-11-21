@@ -9,5 +9,12 @@ export const Content = ({ parts }) => {
       exercises={exercises}
     />
   ));
-  return <div>{content}</div>;
+  const total = parts.reduce((pV, cV) => pV + cV.exercises, 0);
+  console.log(total);
+  return (
+    <div>
+      {content}
+      <p style={{ fontSize: "30px" }}>{"total of " + total + " exercises"}</p>
+    </div>
+  );
 };
