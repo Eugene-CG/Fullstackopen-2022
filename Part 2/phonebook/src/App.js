@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { Filter } from "./components/Filter";
+import { PersonForm } from "./components/PersonForm";
+import { PersonInfo } from "./components/PersonInfo";
 
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas", number: "" }]);
   const [number, setNumber] = useState("");
   const [newName, setNewName] = useState("");
-  const [filter, setFilter] = useState(false);
-  const [filtered, setFiltered] = useState();
+  const [showFiltered, setShowFiltered] = useState({ bool: false, str: "" });
   const addNote = (e) => {
     e.preventDefault();
     if (checkUnicPersons(persons, newName, number)) {
@@ -21,46 +23,37 @@ const App = () => {
       ({ name, number }) => name === targetStr || number === targetNum
     );
   };
-  const filterPersons = ({ target }) => {
+  const changeShowFiltered = ({ target }) => {
     if (target.value === "") {
-      setFilter(false);
-      return;
+      setShowFiltered((prevState) => ({
+        bool: false,
+        str: "",
+      }));
     }
-    const filteredPersons = persons.filter(({ name }) =>
-      name.includes(target.value)
-    );
-    setFiltered(filteredPersons);
-    setFilter(true);
+    setShowFiltered((prevState) => ({
+      bool: true,
+      str: target.value,
+    }));
   };
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={addNote}>
-        Filter:
-        <input
-          type="text"
-          onChange={filterPersons}
-        />
-        <div>
-          name: <input onChange={({ target }) => setNewName(target.value)} />
-          number: <input onChange={({ target }) => setNumber(target.value)} />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <Filter onChange={changeShowFiltered} />
+      <h3>Add a new</h3>
+      <PersonForm
+        addNote={addNote}
+        setName={({ target }) => setNewName(target.value)}
+        setNumber={({ target }) => setNumber(target.value)}
+      />
+
       <h2>Numbers</h2>
-      {filter
-        ? filtered.map(({ name, number }) => (
-            <p key={name}>
-              {name} {number}
-            </p>
-          ))
-        : persons.map(({ name, number }) => (
-            <p key={name}>
-              {name} {number}
-            </p>
-          ))}
+      <PersonInfo
+        persons={
+          showFiltered.bool
+            ? persons.filter(({ name }) => name.includes(showFiltered.str))
+            : persons
+        }
+      />
     </div>
   );
 };
