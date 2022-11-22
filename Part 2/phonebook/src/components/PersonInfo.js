@@ -5,7 +5,7 @@ export const PersonInfo = ({ persons }) => {
     <div>
       {persons.map(({ name, number }) => {
         return (
-          <p key={name}>
+          <p key={`${name}${number}`}>
             {name} {number}
           </p>
         );

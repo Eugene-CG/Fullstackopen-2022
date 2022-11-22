@@ -1,13 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Filter } from "./components/Filter";
 import { PersonForm } from "./components/PersonForm";
 import { PersonInfo } from "./components/PersonInfo";
+import axios from "axios";
 
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas", number: "" }]);
   const [number, setNumber] = useState("");
   const [newName, setNewName] = useState("");
   const [showFiltered, setShowFiltered] = useState({ bool: false, str: "" });
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/persons").then((response) => {
+      setPersons([...persons, ...response.data]);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const addNote = (e) => {
     e.preventDefault();
     if (checkUnicPersons(persons, newName, number)) {
