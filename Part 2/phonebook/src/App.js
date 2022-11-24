@@ -3,6 +3,7 @@ import { Filter } from "./components/Filter";
 import { PersonForm } from "./components/PersonForm";
 import { PersonInfo } from "./components/PersonInfo";
 import axios from "axios";
+import noteServices from "./services/notes";
 
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas", number: "" }]);
@@ -16,21 +17,29 @@ const App = () => {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const addNote = (e) => {
     e.preventDefault();
     if (checkUnicPersons(persons, newName, number)) {
       alert("Only Unic Person");
       return;
     }
-
+    const newPerson = {
+      name: newName,
+      number,
+      id: persons[persons.length - 1].id + 1,
+    };
+    noteServices.create(newPerson).then((response) => console.log(response));
     setPersons(persons.concat({ name: newName, number: number }));
     setNewName("");
   };
+
   const checkUnicPersons = (arr, targetStr, targetNum) => {
     return arr.some(
       ({ name, number }) => name === targetStr || number === targetNum
     );
   };
+
   const changeShowFiltered = ({ target }) => {
     if (target.value === "") {
       setShowFiltered((prevState) => ({
