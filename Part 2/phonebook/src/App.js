@@ -12,9 +12,9 @@ const App = () => {
   const [showFiltered, setShowFiltered] = useState({ bool: false, str: "" });
 
   useEffect(() => {
-    axios.get("http://localhost:3001/persons").then((response) => {
-      setPersons([...persons, ...response.data]);
-    });
+    noteServices
+      .getNotes()
+      .then((response) => setPersons([...persons, ...response]));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
