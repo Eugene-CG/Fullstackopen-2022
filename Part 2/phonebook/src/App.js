@@ -4,6 +4,7 @@ import { PersonForm } from "./components/PersonForm";
 import { PersonInfo } from "./components/PersonInfo";
 import axios from "axios";
 import noteServices from "./services/notes";
+import notes from "./services/notes";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -22,8 +23,7 @@ const App = () => {
 
   const addNote = (e) => {
     e.preventDefault();
-    if (checkUnicPersons(persons, newName, number)) {
-      alert("Only Unic Person");
+    if (updateNote(persons, newName, number)) {
       return;
     }
     const newPerson = {
@@ -34,12 +34,6 @@ const App = () => {
     noteServices.create(newPerson).then((response) => console.log(response));
     setPersons(persons.concat({ name: newName, number: number }));
     setNewName("");
-  };
-
-  const checkUnicPersons = (arr, targetStr, targetNum) => {
-    return arr.some(
-      ({ name, number }) => name === targetStr || number === targetNum
-    );
   };
 
   const changeShowFiltered = ({ target }) => {
@@ -54,11 +48,24 @@ const App = () => {
       str: target.value,
     }));
   };
-  const update = (id) => {
+  const deleteNote = (id) => {
     const newPersons = [...persons];
     newPersons.splice(id, 1);
     noteServices.deleteNote(id);
     setPersons(newPersons);
+  };
+  const updateNote = (persons, newName, number) => {
+    const note = persons.find((obj) => obj.name === newName);
+    const changedNote = { ...note, number };
+
+    noteServices
+      .update(changedNote.id, changedNote)
+      .then((response) =>
+        setPersons(
+          persons.map((note) => (note.name === newName ? response : note))
+        )
+      );
+    return true;
   };
   return (
     <div>
@@ -73,7 +80,7 @@ const App = () => {
 
       <h2>Numbers</h2>
       <PersonInfo
-        deleteNote={(id) => update(id)}
+        deleteNote={(id) => deleteNote(id)}
         persons={
           showFiltered.bool
             ? persons.filter(({ name }) => name.includes(showFiltered.str))

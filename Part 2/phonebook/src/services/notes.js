@@ -10,8 +10,12 @@ const create = (newObject) => {
 const deleteNote = (id) => {
   return axios.delete(`${baseUrl}/${id}`, {});
 };
+const update = (id, obj) => {
+  return axios.put(`${baseUrl}/${id}`, obj).then((response) => response.data);
+};
 export default {
   create,
   getNotes,
   deleteNote,
+  update,
 };
