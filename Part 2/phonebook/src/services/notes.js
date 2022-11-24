@@ -7,8 +7,11 @@ const getNotes = () => {
 const create = (newObject) => {
   return axios.post(baseUrl, newObject).then((response) => response.data);
 };
-
+const deleteNote = (id) => {
+  return axios.delete(`${baseUrl}/${id}`, {});
+};
 export default {
   create,
   getNotes,
+  deleteNote,
 };

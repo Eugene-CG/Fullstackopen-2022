@@ -1,13 +1,24 @@
 import React from "react";
+import { DeleteNote } from "./DeleteNote";
 
-export const PersonInfo = ({ persons }) => {
+export const PersonInfo = ({ persons, deleteNote }) => {
   return (
     <div>
-      {persons.map(({ name, number }) => {
+      {persons.map(({ name, number, id }) => {
         return (
-          <p key={`${name}${number}`}>
-            {name} {number}
-          </p>
+          <div
+            key={id}
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "320px",
+            }}
+          >
+            <p>
+              {name} {number}
+            </p>
+            <DeleteNote onClick={() => deleteNote(id)} />
+          </div>
         );
       })}
     </div>

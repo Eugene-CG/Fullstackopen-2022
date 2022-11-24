@@ -6,7 +6,9 @@ import axios from "axios";
 import noteServices from "./services/notes";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas", number: "" }]);
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", number: "", id: 0 },
+  ]);
   const [number, setNumber] = useState("");
   const [newName, setNewName] = useState("");
   const [showFiltered, setShowFiltered] = useState({ bool: false, str: "" });
@@ -52,6 +54,12 @@ const App = () => {
       str: target.value,
     }));
   };
+  const update = (id) => {
+    const newPersons = [...persons];
+    newPersons.splice(id, 1);
+    noteServices.deleteNote(id);
+    setPersons(newPersons);
+  };
   return (
     <div>
       <h2>Phonebook</h2>
@@ -65,6 +73,7 @@ const App = () => {
 
       <h2>Numbers</h2>
       <PersonInfo
+        deleteNote={(id) => update(id)}
         persons={
           showFiltered.bool
             ? persons.filter(({ name }) => name.includes(showFiltered.str))
